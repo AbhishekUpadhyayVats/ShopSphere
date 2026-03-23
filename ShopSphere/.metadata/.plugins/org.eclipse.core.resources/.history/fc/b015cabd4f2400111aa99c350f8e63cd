@@ -1,0 +1,5 @@
+package com.example.api_gateway.service;
+
+public class UserUserDetailService implements UserDetailService{
+
+}

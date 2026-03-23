@@ -1,0 +1,29 @@
+spring.application.name=api-gateway
+
+# Port
+server.port=8888
+
+# Enable service discovery routing
+spring.cloud.gateway.server.webflux.discovery.locator.enabled=true
+
+# Eureka Config
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+
+
+# Auth Service
+spring.cloud.gateway.server.webflux.routes[0].id=auth-service
+spring.cloud.gateway.server.webflux.routes[0].uri=lb://AUTH-SERVICE
+spring.cloud.gateway.server.webflux.routes[0].predicates[0]=Path=/gateway/auth/**
+spring.cloud.gateway.server.webflux.routes[0].filters[0]=StripPrefix=2
+
+#Admin Service
+spring.cloud.gateway.server.webflux.routes[1].id=admin-service
+spring.cloud.gateway.server.webflux.routes[1].uri=lb://ADMIN-SERVICE
+spring.cloud.gateway.server.webflux.routes[1].predicates[0]=Path=/gateway/admin/**
+spring.cloud.gateway.server.webflux.routes[1].filters[0]=StripPrefix=2
+
+
+jwt.secret=mySelfAbhishekUpadhyayAndCurrentlyIamPersuingBtechInCseFromLpu
+
+

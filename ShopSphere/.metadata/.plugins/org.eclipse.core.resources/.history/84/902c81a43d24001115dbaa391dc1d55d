@@ -1,0 +1,54 @@
+package com.example.auth_service.config;
+
+import java.security.Key;
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+@Component
+public class JwtUtil {
+
+	@Value("${jwt.secret}")
+	private String SECRET;
+	private Key key = Keys.hmacShaKeyFor(SECRET.getBytes()); //HMACSHA  + HS256
+
+	//Generate Token
+    public String generateToken(String userName, String role) {
+        return Jwts.builder()
+                .setSubject(userName)
+                .claim("role", role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    //Extract Username
+    public String extractUsername(String token) {
+        return getClaims(token).getSubject();
+    }
+
+    //Validate Token
+    public boolean validateToken(String token, String username) {
+        return username.equals(extractUsername(token)) && !isTokenExpired(token);
+    }
+
+    //Updated parser (IMPORTANT)
+    private Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    //Expiry check
+    private boolean isTokenExpired(String token) {
+        return getClaims(token).getExpiration().before(new Date());
+    }
+}

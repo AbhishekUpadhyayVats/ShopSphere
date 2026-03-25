@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.auth_service.config.JwtUtil;
 import com.example.auth_service.entity.User;
-import com.example.auth_service.repository.UserRepository;
 import com.example.auth_service.service.UserService;
 
 
@@ -51,8 +50,9 @@ public class AuthController {
             // 2. Fetch user from DB
             User user = userService.findByUsername(email);
             String role = user.getRole();
+            String userId = String.valueOf(user.getId());
             
-            String token = jwtUtil.generateToken(email,role);
+            String token = jwtUtil.generateToken(email,role,userId);
 
             return ResponseEntity.ok(token);
 

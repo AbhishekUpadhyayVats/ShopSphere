@@ -23,18 +23,22 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+    	String authHeader = request.getHeader("Authorization");
+    	
         String username = request.getHeader("X-User");
         String role = request.getHeader("X-Role");
 
         if (username != null && role != null) {
 
+//        	String token = authHeader.substring(7);
+        	
             List<SimpleGrantedAuthority> authorities =
                     List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(
                             username,
-                            null,
+                            authHeader,
                             authorities
                     );
 

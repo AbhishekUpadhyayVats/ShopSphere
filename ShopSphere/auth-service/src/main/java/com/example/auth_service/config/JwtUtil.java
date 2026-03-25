@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -24,12 +23,13 @@ public class JwtUtil {
 	}
 
 	//Generate Token
-    public String generateToken(String userName, String role) {
+    public String generateToken(String userName, String role, String userId) {
         return Jwts.builder()
                 .setSubject(userName)
                 .claim("role", role)
+                .claim("userId",userId)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 3))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }

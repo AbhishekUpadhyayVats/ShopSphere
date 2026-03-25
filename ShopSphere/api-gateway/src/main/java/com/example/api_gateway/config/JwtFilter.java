@@ -51,11 +51,17 @@ public class JwtFilter implements GlobalFilter {
 
             String username = claims.getSubject();
             String role = claims.get("role", String.class);
+            String userId = claims.get("userId",String.class);
 
+            
+            //ServerWebExchange is an interface from Spring WebFlux
+            //ServerWebExchange is used To handle, modify, and pass the request & response together in a reactive, non-blocking flow
+            //Mainly here,we are adding header and sending with token to next service
             ServerWebExchange mutatedExchange = exchange.mutate()
                     .request(r -> r.headers(headers -> {
                         headers.add("X-User", username);
                         headers.add("X-Role", role);
+                        headers.add("X-User-Id",userId);
                     }))
                     .build();
 
@@ -77,3 +83,6 @@ public class JwtFilter implements GlobalFilter {
                 .wrap(bytes)));
     }
 }
+
+//ServerWebExchange comes from Spring WebFlux, not directly from Spring Cloud Gateway.
+//Spring Cloud Gateway is built on top of Spring WebFlux, which uses Netty (non-blocking server) by default.

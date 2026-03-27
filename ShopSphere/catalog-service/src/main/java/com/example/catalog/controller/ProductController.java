@@ -22,7 +22,7 @@ public class ProductController {
     private ProductService productService;
 
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductRequest request) {
 
@@ -31,7 +31,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/gettingProduct/{id}")
     public ResponseEntity<ProductResponse> getProductById(
             @PathVariable Long id) {
 
@@ -66,7 +66,7 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletingProduct/{id}")
     public ResponseEntity<String> deleteProduct(
             @PathVariable Long id) {
 

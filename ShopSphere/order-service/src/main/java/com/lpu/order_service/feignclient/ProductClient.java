@@ -12,7 +12,7 @@ import com.lpu.order_service.dto.ProductResponse;
 @FeignClient(name = "CATALOG-SERVICE", configuration = FeignConfig.class)
 public interface ProductClient {
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/product/gettingProduct/{id}")
     ProductResponse getProduct(@PathVariable Long id);
 
     @PutMapping("/product/reduceStock/{id}")

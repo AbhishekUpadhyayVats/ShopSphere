@@ -42,7 +42,7 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.GET, "/actuator/**").authenticated()
 
 				// PUBLIC APIs
-				.requestMatchers(HttpMethod.GET, "/product", "/product/*", "/category/**").permitAll()
+				.requestMatchers(HttpMethod.GET, "/product", "/product/gettingProduct/**", "/category/**").permitAll()
 
 				// ALL OTHER APIs → ADMIN
 				.anyRequest().hasRole("ADMIN"));

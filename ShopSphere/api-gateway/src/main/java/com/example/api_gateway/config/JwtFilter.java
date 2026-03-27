@@ -24,11 +24,15 @@ public class JwtFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         String path = exchange.getRequest().getURI().getPath();
-
-        System.out.println("PATH = " + path);
+//        System.err.println(path);
+//        System.out.println("PATH = " + path);
+        
         List<String> publicApis = List.of(
         	    "/signup",
-        	    "/login"
+        	    "/login",
+        	    "/v3/api-docs",
+        	    "/swagger-ui",
+        	    "/swagger-ui.html"
         	);
 
         	if (publicApis.contains(path)) {

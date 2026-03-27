@@ -1,14 +1,11 @@
 package com.example.auth_service.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.auth_service.config.JwtUtil;
 import com.example.auth_service.entity.User;
 import com.example.auth_service.repository.UserRepository;
 
@@ -21,8 +18,14 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+	
 	public User saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		//Logger
+		logger.info("New User Signed Up, Name: " + user.getName());
 		
 		return userRepo.save(user);
 	}

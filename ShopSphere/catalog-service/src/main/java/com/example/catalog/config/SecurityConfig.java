@@ -15,37 +15,40 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JwtFilter jwtFilter;
+	private final JwtFilter jwtFilter;
 
-    SecurityConfig(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
+	SecurityConfig(JwtFilter jwtFilter) {
+		this.jwtFilter = jwtFilter;
+	}
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(c -> c.disable());
+		http.csrf(c -> c.disable());
 
-        http.sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.authorizeHttpRequests(req -> req
+		http.authorizeHttpRequests(req -> req
+				
+				//FOR SWAGGER-UI
+				.requestMatchers("/swagger-ui/**", "/v3/api-docs","/swagger-ui.html").permitAll()
 
-            //ADMIN ONLY -> PUTTING IT FIRST
-            .requestMatchers(HttpMethod.GET, "/product/count").hasRole("ADMIN")
+				// ADMIN ONLY -> PUTTING IT FIRST
+				.requestMatchers(HttpMethod.GET, "/product/count").hasRole("ADMIN")
 
-            //INTERNAL (Order Service)
-            .requestMatchers(HttpMethod.PUT, "/product/reduceStock/*","/product/increaseStock/*").authenticated()
+				// INTERNAL (Order Service)
+				.requestMatchers(HttpMethod.PUT, "/product/reduceStock/*", "/product/increaseStock/*").authenticated()
 
-            //PUBLIC APIs
-            .requestMatchers(HttpMethod.GET, "/product", "/product/*", "/category/**").permitAll()
+				.requestMatchers(HttpMethod.GET, "/actuator/**").authenticated()
 
-            //ALL OTHER APIs → ADMIN
-            .anyRequest().hasRole("ADMIN")
-        );
+				// PUBLIC APIs
+				.requestMatchers(HttpMethod.GET, "/product", "/product/*", "/category/**").permitAll()
 
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+				// ALL OTHER APIs → ADMIN
+				.anyRequest().hasRole("ADMIN"));
 
-        return http.build();
-    }
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
 }

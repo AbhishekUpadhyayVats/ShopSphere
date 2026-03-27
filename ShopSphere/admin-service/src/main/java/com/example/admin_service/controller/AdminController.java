@@ -13,7 +13,6 @@ import com.example.admin_service.service.AdminService;
 import com.example.admin_service.status.OrderStatus;
 
 @RestController
-@RequestMapping("/admin")
 //@PreAuthorize("hasRole('ADMIN')") //secure all endpoints -> we commented because already authenticated in SecurityConfig
 public class AdminController {
 

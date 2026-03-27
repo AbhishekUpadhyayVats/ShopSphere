@@ -21,6 +21,10 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                		
+                		//FOR SWAGGER-UI
+						.requestMatchers("/swagger-ui/**", "/v3/api-docs","/swagger-ui.html").permitAll()
+						
                         .anyRequest().hasRole("ADMIN")
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

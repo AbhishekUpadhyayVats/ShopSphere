@@ -3,14 +3,18 @@ package com.lpu.order_service.serviceimplementation;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.lpu.order_service.config.RabbitMQConfig;
 import com.lpu.order_service.dto.*;
-import com.lpu.order_service.emailservice.EmailService;
+//import com.lpu.order_service.emailservice.EmailService;
 import com.lpu.order_service.entity.*;
 import com.lpu.order_service.exception.OrderNotFoundException;
 import com.lpu.order_service.repository.AddressRepository;
@@ -26,23 +30,25 @@ public class OrderServiceImpl implements OrderService {
     private final AddressRepository addressRepository;
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
-    private final ProductClient productClient;
-    private final EmailService emailService;
+    private final ProductClient productClient;  
+    private final RabbitTemplate rabbitTemplate;
+	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+
 
     public OrderServiceImpl(OrderRepository orderRepository,
                             CartRepository cartRepository,
                             ProductClient productClient,
-                            EmailService emailService, AddressRepository addressRepository) {
+                            RabbitTemplate rabbitTemplate, AddressRepository addressRepository) {
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.productClient = productClient;
-        this.emailService = emailService;
+        this.rabbitTemplate = rabbitTemplate;
         this.addressRepository = addressRepository;
     }
 
     //PLACE ORDER FROM CART (SAME SERVICE)
     @Override
-    @CachePut(value = "order", key = "#result.id")
+    @CachePut(value = "order", key = "#result.id + '-' + #userId")
     @CacheEvict(value = "cart", key = "#userId")
     public OrderResponseDTO placeOrder(Long userId, OrderRequestDTO request) {
 
@@ -107,12 +113,28 @@ public class OrderServiceImpl implements OrderService {
 
         Order saved = orderRepository.save(order);
 
+        //Logging
+        logger.info("Order placed with ORDER-ID: " + saved.getId());
+        
         //clear cart
         cart.getCartItem().clear();
         cartRepository.save(cart);
 
-        emailService.sendMail("abhi2002upadhyay@gmail.com", saved);
+        OrderEvent event = new OrderEvent(
+                saved.getId(),
+                saved.getUserId(),
+                saved.getTotalAmount(),
+                "abhi2002upadhyay@gmail.com",
+                "ORDER_CREATED",
+                saved.getCreatedAt()
+        );
 
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EXCHANGE,
+                RabbitMQConfig.ROUTING_KEY,
+                event
+        );
+        
         return mapToResponse(saved);
     }
     
@@ -164,6 +186,9 @@ public class OrderServiceImpl implements OrderService {
         }
         
         orderRepository.delete(order);
+        
+        //Logging
+        logger.info("Order with ID " + orderId + ", deleted");
     }
      
     //UPDATE ONLY PAYMENT METHOD
@@ -195,7 +220,7 @@ public class OrderServiceImpl implements OrderService {
     //UPDATE ONLY STATUS
     //ADMIN ONLY
     @Override
-    @CachePut(value = "order", key = "#orderId")
+    @CacheEvict(value = {"order", "admin"}, allEntries = true)
     public OrderResponseDTO updateOrderStatus(Long orderId, OrderStatus status) {
     	
     	Order order = orderRepository.findById(orderId)
@@ -209,12 +234,14 @@ public class OrderServiceImpl implements OrderService {
     
     //ADMIN ONLY
     @Override
+    @Cacheable(value = "admin", key = "'totalOrders'")
     public Long getTotalOrders() {
         return orderRepository.count();
     }
 
     //ADMIN ONLY
     @Override
+    @Cacheable(value = "admin", key = "'totalRevenue'")
     public Double getTotalRevenue() {
         Double revenue = orderRepository.getTotalRevenue();
         return revenue != null ? revenue : 0.0;

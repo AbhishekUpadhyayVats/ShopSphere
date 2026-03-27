@@ -1,5 +1,8 @@
 package com.example.catalog.serviceimplementation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -9,9 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.catalog.dto.OrderEvent;
 import com.example.catalog.dto.ProductRequest;
 import com.example.catalog.dto.ProductResponse;
-import com.example.catalog.emailservice.EmailService;
+//import com.example.catalog.emailservice.EmailService;
 import com.example.catalog.entity.Category;
 import com.example.catalog.entity.Product;
 import com.example.catalog.exception.CategoryNotFoundException;
@@ -23,14 +27,20 @@ import com.example.catalog.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService{
 	
-	@Autowired
-	private EmailService emailService;
+//	@Autowired
+//	private EmailService emailService;
 	
 	@Autowired
 	private ProductRepository productRepo;
 	
 	@Autowired
 	private CategoryRepository categoryRepo;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
 
 	@Override
 	@CachePut(value = "products", key = "#result.id")
@@ -39,8 +49,23 @@ public class ProductServiceImpl implements ProductService{
 		
 		Product product1 = productRepo.save(product);
 		
-		emailService.sendMail("abhi2002upadhyay@gmail.com", product1);
+		//Logging
+		logger.info("New Product Added ID:" + product1.getId());
 		
+		OrderEvent event = new OrderEvent(
+		        product1.getId(),
+		        null,
+		        product1.getPrice(),
+		        "abhi2002upadhyay@gmail.com",
+		        "PRODUCT_CREATED",
+		        java.time.LocalDateTime.now()
+		);
+
+		rabbitTemplate.convertAndSend(
+		        "email.exchange",
+		        "email.routingKey",
+		        event
+		);		
 		return productToProductResponse(product1);
 	}
 
@@ -97,6 +122,9 @@ public class ProductServiceImpl implements ProductService{
 		    @CacheEvict(value = "productsList", allEntries = true)
 	})
 	public void delete(Long id) {
+		
+		//Logging
+		logger.info("Product ID " + id + ", deleted");
 		productRepo.deleteById(id);
 	}
 	

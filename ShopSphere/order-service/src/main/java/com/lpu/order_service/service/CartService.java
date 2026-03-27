@@ -11,5 +11,5 @@ public interface CartService {
 
     CartResponseDTO getCartByUserId(Long userId);
 
-    void deleteCart(Long cartId);
+    void deleteCart(Long cartId, Long userId);
 }

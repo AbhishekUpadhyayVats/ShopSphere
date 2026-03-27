@@ -70,17 +70,27 @@ public class CartServiceImpl implements CartService {
 
         Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new CartNotFoundException("Cart not found"));
+        
+        //IMPORTANT CHECK
+        if (!cart.getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized access");
+        }
 
         return mapToResponse(cart);
     }
 
     //Delete cart
     @Override
-    @CacheEvict(value = "cart", key = "#cartId")
-    public void deleteCart(Long cartId) {
+    @CacheEvict(value = "cart", key = "#userId")
+    public void deleteCart(Long cartId, Long userId) {
 
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new CartNotFoundException("Cart not found"));
+        
+        //IMPORTANT CHECK
+        if (!cart.getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized access");
+        }
 
         cartRepository.delete(cart);
     }

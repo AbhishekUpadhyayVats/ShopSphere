@@ -1,6 +1,5 @@
 package com.example.auth_service.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,10 +26,13 @@ public class SecurityConfig {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
 				// authorization rules
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/login", "/signup").permitAll().anyRequest().authenticated())
-		        .httpBasic(httpBasic -> httpBasic.disable())
-		        .formLogin(form -> form.disable()) ;
+				.authorizeHttpRequests(auth -> auth
+						
+						// FOR SWAGGER-UI
+						.requestMatchers("/swagger-ui/**", "/v3/api-docs","/swagger-ui.html").permitAll()
+						
+						.requestMatchers("/login", "/signup", "/actuator/**").permitAll().anyRequest().authenticated())
+				.httpBasic(httpBasic -> httpBasic.disable()).formLogin(form -> form.disable());
 		return http.build();
 	}
 
@@ -46,7 +48,3 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 }
-
-
-
-

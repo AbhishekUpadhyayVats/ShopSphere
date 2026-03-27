@@ -26,8 +26,12 @@ public class SecurityConfig {
 
 		http.csrf(c -> c.disable());
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		http.authorizeHttpRequests(req ->
-		req.anyRequest().hasAnyRole("ADMIN","CUSTOMER"));
+		http.authorizeHttpRequests(req -> req
+				
+		//FOR SWAGGER-UI
+		.requestMatchers("/swagger-ui/**", "/v3/api-docs","/swagger-ui.html").permitAll()
+		
+		.anyRequest().hasAnyRole("ADMIN","CUSTOMER"));
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();

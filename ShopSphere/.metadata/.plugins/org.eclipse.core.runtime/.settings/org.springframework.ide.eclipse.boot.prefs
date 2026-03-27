@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.actuator=6
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka=5
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka-server=1
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-feign=2
@@ -8,6 +9,7 @@ org.springframework.ide.eclipse.boot.wizard.PopularityTracker.devtools=6
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.mail=3
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.postgresql=4
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.security=5
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.springdoc-openapi=5
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.validation=2
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.web=5
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=order-service

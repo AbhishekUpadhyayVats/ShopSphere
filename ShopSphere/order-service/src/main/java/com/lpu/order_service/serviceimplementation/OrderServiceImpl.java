@@ -20,6 +20,7 @@ import com.lpu.order_service.exception.OrderNotFoundException;
 import com.lpu.order_service.repository.AddressRepository;
 import com.lpu.order_service.repository.CartRepository;
 import com.lpu.order_service.repository.OrderRepository;
+import com.lpu.order_service.feignclient.PaymentClient;
 import com.lpu.order_service.feignclient.ProductClient;
 import com.lpu.order_service.service.OrderService;
 import com.lpu.order_service.status.OrderStatus;
@@ -32,18 +33,21 @@ public class OrderServiceImpl implements OrderService {
     private final CartRepository cartRepository;
     private final ProductClient productClient;  
     private final RabbitTemplate rabbitTemplate;
+    private final PaymentClient paymentClient;
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
 
     public OrderServiceImpl(OrderRepository orderRepository,
                             CartRepository cartRepository,
                             ProductClient productClient,
-                            RabbitTemplate rabbitTemplate, AddressRepository addressRepository) {
+                            RabbitTemplate rabbitTemplate, AddressRepository addressRepository,
+                            PaymentClient paymentClient) {
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.productClient = productClient;
         this.rabbitTemplate = rabbitTemplate;
         this.addressRepository = addressRepository;
+        this.paymentClient = paymentClient;
     }
 
     //PLACE ORDER FROM CART (SAME SERVICE)
@@ -111,7 +115,21 @@ public class OrderServiceImpl implements OrderService {
 
         order.setTotalAmount(total);
 
+        
         Order saved = orderRepository.save(order);
+
+        // Payment — non-critical: if payment-service is down, order is still saved
+        PaymentResponseDTO paymentResponse = new PaymentResponseDTO();
+        try {
+            PaymentRequestDTO paymentRequest = new PaymentRequestDTO();
+            paymentRequest.setOrderId(saved.getId());
+            paymentRequest.setUserId(saved.getUserId());
+            paymentRequest.setAmount(saved.getTotalAmount());
+            paymentRequest.setPaymentMethod(saved.getPaymentMethod());
+            paymentResponse = paymentClient.processPayment(paymentRequest);
+        } catch (Exception e) {
+            logger.warn("Payment service unavailable, order saved without payment: " + e.getMessage());
+        }
 
         //Logging
         logger.info("Order placed with ORDER-ID: " + saved.getId());
@@ -120,30 +138,32 @@ public class OrderServiceImpl implements OrderService {
         cart.getCartItem().clear();
         cartRepository.save(cart);
 
-        OrderEvent event = new OrderEvent(
-                saved.getId(),
-                saved.getUserId(),
-                saved.getTotalAmount(),
-                "abhi2002upadhyay@gmail.com",
-                "ORDER_CREATED",
-                saved.getCreatedAt()
-        );
-
-        rabbitTemplate.convertAndSend(
-                RabbitMQConfig.EXCHANGE,
-                RabbitMQConfig.ROUTING_KEY,
-                event
-        );
+        // RabbitMQ notification — non-critical, don't let it fail the order save
+        try {
+            OrderEvent event = new OrderEvent(
+                    saved.getId(),
+                    saved.getUserId(),
+                    saved.getTotalAmount(),
+                    "abhi2002upadhyay@gmail.com",
+                    "ORDER_CREATED",
+                    saved.getCreatedAt()
+            );
+            rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, event);
+        } catch (Exception e) {
+            logger.warn("RabbitMQ unavailable, skipping order-created event: " + e.getMessage());
+        }
         
-        return mapToResponse(saved);
+        OrderResponseDTO orderResponseDTO = mapToResponse(saved);
+        orderResponseDTO.setRazorpayOrderId(paymentResponse.getRazorpayOrderId());
+        
+        return orderResponseDTO;
+
     }
     
     
     //GET ORDER
     @Cacheable(value = "order", key = "#orderId + '-' + #userId")
-    public OrderResponseDTO getOrderById(Long orderId, Long userId) {
-
-        Order order = orderRepository.findById(orderId)
+    public OrderResponseDTO getOrderById(Long orderId, Long userId) {        Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found"));
         
         boolean isAdmin = SecurityContextHolder.getContext()
@@ -157,6 +177,13 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Unauthorized access to order");
         }
         return mapToResponse(order);
+    }
+
+    //GET ALL ORDERS FOR A USER
+    @Override
+    public List<OrderResponseDTO> getOrdersByUserId(Long userId) {
+        List<Order> orders = orderRepository.findByUserId(userId);
+        return orders.stream().map(this::mapToResponse).toList();
     }
 
 
@@ -271,7 +298,7 @@ public class OrderServiceImpl implements OrderService {
         dto.setCreatedAt(order.getCreatedAt());
         dto.setUpdatedAt(order.getUpdatedAt());
         dto.setPaymentMethod(order.getPaymentMethod());
-
+        
         dto.setItems(order.getItems().stream().map(i -> {
             OrderItemResponseDTO item = new OrderItemResponseDTO();
             item.setId(i.getId());

@@ -37,11 +37,31 @@ public class CartController {
         return ResponseEntity.ok(cartService.getCartByUserId(userId));
     }
 
-    //Delete cart
-    @DeleteMapping("/{cartId}")
-    public ResponseEntity<String> deleteCart(@PathVariable Long cartId, @RequestHeader("X-User-Id") Long userId) {
+    //Delete cart (clear all items)
+    @DeleteMapping
+    public ResponseEntity<String> deleteCart(@RequestHeader("X-User-Id") Long userId) {
+        cartService.deleteCart(null, userId);
+        return ResponseEntity.ok("Cart cleared successfully");
+    }
 
-        cartService.deleteCart(cartId, userId);
-        return ResponseEntity.ok("Cart deleted successfully");
+    //Update cart item quantity
+    @PutMapping("/item/{itemId}")
+    public ResponseEntity<CartResponseDTO> updateCartItem(
+            @PathVariable Long itemId,
+            @RequestHeader("X-User-Id") Long userId,
+            @RequestParam int quantity) {
+
+        CartResponseDTO response = cartService.updateCartItemQuantity(userId, itemId, quantity);
+        return ResponseEntity.ok(response);
+    }
+
+    //Remove single item from cart
+    @DeleteMapping("/item/{itemId}")
+    public ResponseEntity<CartResponseDTO> removeCartItem(
+            @PathVariable Long itemId,
+            @RequestHeader("X-User-Id") Long userId) {
+
+        CartResponseDTO response = cartService.removeCartItem(userId, itemId);
+        return ResponseEntity.ok(response);
     }
 }

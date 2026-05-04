@@ -27,7 +27,7 @@ public interface OrderClient {
     public ResponseEntity<OrderResponseDTO> getOrderById(
             @PathVariable Long orderId, @RequestHeader("X-User-Id") Long userId);
 
-    @PutMapping("/order/status/{orderId}")
+    @PutMapping("/order/internal/status/{orderId}")
     public ResponseEntity<OrderResponseDTO> updateOrderStatus(
             @PathVariable Long orderId,
             @RequestParam  OrderStatus status) ;

@@ -48,4 +48,11 @@ public class AdminController {
     public ResponseEntity<ReportResponseDTO> getReports() {
         return ResponseEntity.ok(adminService.getReports());
     }
-}
+    
+    
+    //All users
+    @GetMapping("/getUsers")
+    public ResponseEntity<UserResponseDTO> getAllUsers(){
+    	return ResponseEntity.ok(adminService.getReports);
+    }
+    }

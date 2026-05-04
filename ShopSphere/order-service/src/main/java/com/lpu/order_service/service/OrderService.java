@@ -12,6 +12,8 @@ public interface OrderService {
 
     OrderResponseDTO getOrderById(Long orderId, Long userId);
 
+    List<OrderResponseDTO> getOrdersByUserId(Long userId);
+
     OrderResponseDTO updateOrder(Long orderId, Long userId, String paymentMethod);
 
     void deleteOrder(Long orderId, Long userId);

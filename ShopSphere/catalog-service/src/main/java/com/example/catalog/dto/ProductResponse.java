@@ -10,6 +10,9 @@ public class ProductResponse implements Serializable{
     private String name;
     private double price;
     private String categoryName;
+    private String description;
+    private int stock;
+    private String imageUrl;
 	public Long getId() {
 		return id;
 	}
@@ -33,6 +36,24 @@ public class ProductResponse implements Serializable{
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public ProductResponse() {
 		super();

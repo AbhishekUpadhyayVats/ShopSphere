@@ -1,0 +1,104 @@
+package com.example.api_gateway.config;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
+
+import java.util.List;
+
+import org.springframework.cloud.gateway.filter.*;
+import org.springframework.web.server.ServerWebExchange;
+
+import reactor.core.publisher.Mono;
+
+@Component
+public class JwtFilter implements GlobalFilter {
+
+	private final AntPathMatcher matcher = new AntPathMatcher();
+	
+    private final JwtUtil jwtUtil;
+
+    public JwtFilter(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+        String path = exchange.getRequest().getURI().getPath();
+        
+//        System.err.println(path);
+//        System.out.println("PATH = " + path);
+        
+        List<String> publicApis = List.of(
+        	    "/signup",
+        	    "/login",
+        	    "/allUsers",
+        	    
+        	    "/v3/api-docs",
+        	    "/swagger-ui",
+        	    "/swagger-ui.html",
+        	    
+        	    "/product/gettingProduct/**",
+        	    "/product"
+        	);
+
+        boolean isPublic = publicApis.stream()
+                .anyMatch(pattern -> matcher.match(pattern, path));
+
+        if (isPublic) {
+            return chain.filter(exchange);
+        }
+        
+        String header = exchange.getRequest()
+                .getHeaders()
+                .getFirst(HttpHeaders.AUTHORIZATION);
+
+        if (header == null || !header.startsWith("Bearer ")) {
+            return onError(exchange, "Missing token");
+        }
+
+        String token = header.substring(7);
+
+        try {
+
+            var claims = jwtUtil.extractAllClaims(token);
+
+            String username = claims.getSubject();
+            String role = claims.get("role", String.class);
+            String userId = claims.get("userId",String.class);
+
+            
+            //ServerWebExchange is an interface from Spring WebFlux
+            //ServerWebExchange is used To handle, modify, and pass the request & response together in a reactive, non-blocking flow
+            //Mainly here,we are adding header and sending with token to next service
+            ServerWebExchange mutatedExchange = exchange.mutate()
+                    .request(r -> r.headers(headers -> {
+                        headers.add("X-User", username);
+                        headers.add("X-Role", role);
+                        headers.add("X-User-Id",userId);
+                    }))
+                    .build();
+
+            return chain.filter(mutatedExchange);
+
+        } catch (Exception e) {
+            return onError(exchange, "Invalid or expired token");
+        }
+    }
+
+    private Mono<Void> onError(ServerWebExchange exchange, String message) {
+        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+
+        byte[] bytes = ("{ \"error\": \"" + message + "\" }").getBytes();
+
+        return exchange.getResponse()
+                .writeWith(Mono.just(exchange.getResponse()
+                .bufferFactory()
+                .wrap(bytes)));
+    }
+}
+
+//ServerWebExchange comes from Spring WebFlux, not directly from Spring Cloud Gateway.
+//Spring Cloud Gateway is built on top of Spring WebFlux, which uses Netty (non-blocking server) by default.

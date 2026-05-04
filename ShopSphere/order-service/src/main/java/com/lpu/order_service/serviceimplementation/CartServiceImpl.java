@@ -3,9 +3,6 @@ package com.lpu.order_service.serviceimplementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.lpu.order_service.dto.*;
@@ -23,71 +20,64 @@ public class CartServiceImpl implements CartService {
         this.cartRepository = cartRepository;
     }
 
+    // Add item to cart (or increase quantity if already exists)
     @Override
-    @CachePut(value = "cart", key = "#userId")
     public CartResponseDTO createCart(Long userId, CartItemRequestDTO request) {
 
         Cart cart = cartRepository.findByUserId(userId).orElse(null);
 
-        //If cart doesn't exist → create new
         if (cart == null) {
             cart = new Cart();
             cart.setUserId(userId);
             cart.setCartItem(new ArrayList<>());
         }
 
-        //Check if product already exists in cart
         boolean itemExists = false;
-
         for (CartItem item : cart.getCartItem()) {
             if (item.getProductId().equals(request.getProductId())) {
-                // update quantity
                 item.setQuantity(item.getQuantity() + request.getQuantity());
                 itemExists = true;
                 break;
             }
         }
 
-        //If not exists → add new item
         if (!itemExists) {
             CartItem newItem = new CartItem();
             newItem.setProductId(request.getProductId());
             newItem.setQuantity(request.getQuantity());
             newItem.setCart(cart);
-
             cart.getCartItem().add(newItem);
         }
 
-        Cart saved = cartRepository.save(cart);
-
-        return mapToResponse(saved);
+        return mapToResponse(cartRepository.save(cart));
     }
 
-    //Get cart
+    // Get cart — returns empty cart DTO if none exists (no exception)
     @Override
-    @Cacheable(value = "cart", key = "#userId")
     public CartResponseDTO getCartByUserId(Long userId) {
 
-        Cart cart = cartRepository.findByUserId(userId)
-                .orElseThrow(() -> new CartNotFoundException("Cart not found"));
-        
-        //IMPORTANT CHECK
-        if (!cart.getUserId().equals(userId)) {
-            throw new RuntimeException("Unauthorized access");
+        Cart cart = cartRepository.findByUserId(userId).orElse(null);
+
+        if (cart == null) {
+            CartResponseDTO empty = new CartResponseDTO();
+            empty.setUserId(userId);
+            empty.setItems(new ArrayList<>());
+            return empty;
         }
 
         return mapToResponse(cart);
     }
 
-    //Delete cart
+    // Delete entire cart
     @Override
-    @CacheEvict(value = "cart", key = "#userId")
     public void deleteCart(Long cartId, Long userId) {
 
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new CartNotFoundException("Cart not found"));
-        
-        //IMPORTANT CHECK
+        Cart cart = cartRepository.findByUserId(userId).orElse(null);
+
+        if (cart == null) {
+            return; // already gone — treat as success
+        }
+
         if (!cart.getUserId().equals(userId)) {
             throw new RuntimeException("Unauthorized access");
         }
@@ -95,7 +85,44 @@ public class CartServiceImpl implements CartService {
         cartRepository.delete(cart);
     }
 
-    //Mapper
+    // Update quantity of a specific cart item
+    @Override
+    public CartResponseDTO updateCartItemQuantity(Long userId, Long itemId, int quantity) {
+
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new CartNotFoundException("Cart not found"));
+
+        CartItem target = cart.getCartItem().stream()
+                .filter(i -> i.getId().equals(itemId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Cart item not found: " + itemId));
+
+        if (quantity <= 0) {
+            cart.getCartItem().remove(target);
+        } else {
+            target.setQuantity(quantity);
+        }
+
+        return mapToResponse(cartRepository.save(cart));
+    }
+
+    // Remove a single item from cart
+    @Override
+    public CartResponseDTO removeCartItem(Long userId, Long itemId) {
+
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new CartNotFoundException("Cart not found"));
+
+        boolean removed = cart.getCartItem().removeIf(i -> i.getId().equals(itemId));
+
+        if (!removed) {
+            throw new RuntimeException("Cart item not found: " + itemId);
+        }
+
+        return mapToResponse(cartRepository.save(cart));
+    }
+
+    // Mapper
     private CartResponseDTO mapToResponse(Cart cart) {
 
         CartResponseDTO dto = new CartResponseDTO();

@@ -20,6 +20,16 @@ public class OrderResponseDTO implements Serializable{
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<OrderItemResponseDTO> items;
+    
+    private String razorpayOrderId;
+    
+    
+	public String getRazorpayOrderId() {
+		return razorpayOrderId;
+	}
+	public void setRazorpayOrderId(String razorpayOrderId) {
+		this.razorpayOrderId = razorpayOrderId;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -81,3 +91,11 @@ public class OrderResponseDTO implements Serializable{
 				+ items + "]";
 	}
 }
+
+//🔹 What is serialVersionUID?
+
+// It’s basically a version identifier for a class.
+
+// When Java serializes an object (converts it into bytes to store or send), it also stores this ID. Later, during deserialization, Java checks:
+
+// 👉 “Is this the same version of the class?”

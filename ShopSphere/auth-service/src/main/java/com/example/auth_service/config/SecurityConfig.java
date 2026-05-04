@@ -1,5 +1,6 @@
 package com.example.auth_service.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +32,7 @@ public class SecurityConfig {
 						// FOR SWAGGER-UI
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs","/swagger-ui.html").permitAll()
 						
-						.requestMatchers("/login", "/signup", "/actuator/**").permitAll().anyRequest().authenticated())
+						.requestMatchers("/login", "/signup","/allUsers","/actuator/**").permitAll().anyRequest().authenticated())
 				.httpBasic(httpBasic -> httpBasic.disable()).formLogin(form -> form.disable());
 		return http.build();
 	}
@@ -46,5 +47,11 @@ public class SecurityConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	//ModelMapper
+	@Bean
+	public ModelMapper getMapper() {
+		return new ModelMapper();
 	}
 }

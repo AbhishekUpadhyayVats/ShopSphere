@@ -4,10 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,44 +39,38 @@ public class ProductServiceImpl implements ProductService{
 
 
 	@Override
-	@CachePut(value = "products", key = "#result.id")
 	public ProductResponse create(ProductRequest request) {
 		Product product = productReqToProduct(request);
-		
 		Product product1 = productRepo.save(product);
-		
+
 		//Logging
 		logger.info("New Product Added ID:" + product1.getId());
-		
-		OrderEvent event = new OrderEvent(
-		        product1.getId(),
-		        null,
-		        product1.getPrice(),
-		        "abhi2002upadhyay@gmail.com",
-		        "PRODUCT_CREATED",
-		        java.time.LocalDateTime.now()
-		);
 
-		rabbitTemplate.convertAndSend(
-		        "email.exchange",
-		        "email.routingKey",
-		        event
-		);		
+		// RabbitMQ notification — non-critical, don't let it fail the save
+		try {
+			OrderEvent event = new OrderEvent(
+					product1.getId(),
+					null,
+					product1.getPrice(),
+					"abhi2002upadhyay@gmail.com",
+					"PRODUCT_CREATED",
+					java.time.LocalDateTime.now()
+			);
+			rabbitTemplate.convertAndSend("email.exchange", "email.routingKey", event);
+		} catch (Exception e) {
+			logger.warn("RabbitMQ unavailable, skipping product-created event: " + e.getMessage());
+		}
+
 		return productToProductResponse(product1);
 	}
 
 	@Override
-	@Cacheable(value = "products", key = "#id")
 	public ProductResponse getById(Long id) {
 		Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with ID: " + id + " does not exists"));
 		return productToProductResponse(product);
 	}
 
 	@Override
-	@Cacheable(
-		    value = "productsList",
-		    key = "#keyword + '_' + #pageable.pageNumber + '_' + #pageable.pageSize"
-		)
 	public Page<ProductResponse> getAll(String keyword, Pageable pageable) {
 		Page<Product> page = productRepo.findByNameContainingIgnoreCase(keyword, pageable);
 		
@@ -88,8 +78,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	@CachePut(value = "products", key = "#id")
-	@CacheEvict(value = "productsList", allEntries = true)
 	public ProductResponse update(Long id, ProductRequest request) {
 		Product product = productRepo.findById(id)
 	            .orElseThrow(() -> new ProductNotFoundException(
@@ -104,6 +92,7 @@ public class ProductServiceImpl implements ProductService{
 	    product.setPrice(request.getPrice());
 	    product.setStock(request.getStock());
 	    product.setCategory(category);
+	    product.setImageUrl(request.getImageUrl());
 
 	    Product savedProduct = productRepo.save(product);
 
@@ -111,16 +100,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	/*@CacheEvict(value = {"products", "productsList"}, allEntries = true)
-	 *This means:
-	 *-> Clear ALL entries from products cache
-	 *-> Clear ALL entries from productsList cache
-	 */
-	
-	@Caching(evict = {
-		    @CacheEvict(value = "products", key = "#id"),
-		    @CacheEvict(value = "productsList", allEntries = true)
-	})
 	public void delete(Long id) {
 		
 		//Logging
@@ -169,6 +148,7 @@ public class ProductServiceImpl implements ProductService{
 		product.setCategory(category);
 		product.setStock(productRequest.getStock());
 		product.setPrice(productRequest.getPrice());
+		product.setImageUrl(productRequest.getImageUrl());
 		
 		return product;
 	}
@@ -180,6 +160,9 @@ public class ProductServiceImpl implements ProductService{
 		productResponse.setCategoryName(product.getCategory().getName());
 		productResponse.setName(product.getName());
 		productResponse.setPrice(product.getPrice());
+		productResponse.setDescription(product.getDescription());
+		productResponse.setStock(product.getStock());
+		productResponse.setImageUrl(product.getImageUrl());
 		
 		return productResponse;
 	}

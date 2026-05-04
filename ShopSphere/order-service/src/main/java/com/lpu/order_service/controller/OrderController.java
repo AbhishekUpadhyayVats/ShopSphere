@@ -40,6 +40,13 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrderById(orderId,userId));
     }
 
+    //Get all orders for current user
+    @GetMapping("/my-orders")
+    public ResponseEntity<List<OrderResponseDTO>> getMyOrders(
+            @RequestHeader("X-User-Id") Long userId) {
+        return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
+    }
+
     //Update payment method
     @PutMapping("/{orderId}")
     public ResponseEntity<OrderResponseDTO> updateOrder(
@@ -48,6 +55,15 @@ public class OrderController {
             @RequestParam String paymentMethod) {
 
         return ResponseEntity.ok(orderService.updateOrder(orderId, userId, paymentMethod));
+    }
+    
+    //update order status
+    @PutMapping("/internal/status/{orderId}")
+    public ResponseEntity<OrderResponseDTO> updateOrderStatusInternal(
+            @PathVariable Long orderId,
+            @RequestParam OrderStatus status) {
+
+        return ResponseEntity.ok(orderService.updateOrderStatus(orderId, status));
     }
     
     //Delete order

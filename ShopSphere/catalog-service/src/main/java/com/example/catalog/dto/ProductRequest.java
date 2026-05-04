@@ -24,6 +24,8 @@ public class ProductRequest {
 	@NotNull
 	private Long categoryId;
 
+	private String imageUrl;
+
 	public String getName() {
 		return name;
 	}
@@ -62,6 +64,14 @@ public class ProductRequest {
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override

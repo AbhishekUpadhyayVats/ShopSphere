@@ -1,6 +1,8 @@
 package com.example.auth_service.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.auth_service.config.JwtUtil;
+import com.example.auth_service.dto.UserResponseDTO;
 import com.example.auth_service.entity.User;
 import com.example.auth_service.service.UserService;
 
@@ -67,6 +70,14 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid credentials");
         }
+        
+    }
+    
+    
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
+    	List<UserResponseDTO> users = userService.getAllUser();
+        return ResponseEntity.ok(users);
     }
 }
 

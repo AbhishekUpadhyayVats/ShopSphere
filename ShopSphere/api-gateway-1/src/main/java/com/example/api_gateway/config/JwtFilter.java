@@ -99,6 +99,6 @@ public class JwtFilter implements GlobalFilter {
                 .wrap(bytes)));
     }
 }
-StandardCharsets
+//StandardCharsets
 //ServerWebExchange comes from Spring WebFlux, not directly from Spring Cloud Gateway.
 //Spring Cloud Gateway is built on top of Spring WebFlux, which uses Netty (non-blocking server) by default.

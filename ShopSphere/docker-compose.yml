@@ -122,7 +122,7 @@ services:
     command:
       [
         "--eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka",
-        "--spring.datasource.url=jdbc:postgresql://postgres:5432/shopsphereuser?sslmode=disable",
+        "--spring.datasource.url=jdbc:postgresql://postgres:5432/sprintuser?sslmode=disable",
         "--spring.datasource.username=postgres",
         "--spring.datasource.password=root"
       ]
@@ -147,7 +147,7 @@ services:
     command:
       [
         "--eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka",
-       "--spring.datasource.url=jdbc:postgresql://postgres:5432/shopspherecatalog?sslmode=disable",
+       "--spring.datasource.url=jdbc:postgresql://postgres:5432/sprintcatalog?sslmode=disable",
         "--spring.datasource.username=postgres",
         "--spring.datasource.password=root",
 
@@ -175,7 +175,7 @@ services:
     command:
       [
         "--eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka",
-       "--spring.datasource.url=jdbc:postgresql://postgres:5432/shopsphereorder?sslmode=disable",
+       "--spring.datasource.url=jdbc:postgresql://postgres:5432/sprintorder?sslmode=disable",
         "--spring.datasource.username=postgres",
         "--spring.datasource.password=root",
 
@@ -215,14 +215,68 @@ services:
       context: ./email-service
     container_name: email-service
     ports:
-      - "1000:1000"
+    - "1000:1000"
     environment:
+      - SPRING_APPLICATION_NAME=email-service
+
+    # Eureka (IMPORTANT FIX)
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka/
+
+    # RabbitMQ
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+
+    # Mail
+      - SPRING_MAIL_HOST=smtp.gmail.com
+      - SPRING_MAIL_PORT=587
       - SPRING_MAIL_USERNAME=abhi2002upadhyay@gmail.com
-      - SPRING_MAIL_PASSWORD="rxmj atai sgoc vfex"
+      - SPRING_MAIL_PASSWORD=rxmjataisgocvfex
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+
+    # Zipkin
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=1.0
+
     depends_on:
       - rabbitmq
       - zipkin
+      - eureka-service
+
+    networks:
+      - shopsphere-network
+
+        # ================= PAYMENT SERVICE =================
+  payment-service:
+    build:
+      context: ./payment-service
+    container_name: payment-service
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config:8888/config
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+
+      # Razorpay (optional if using config server)
+      - RAZORPAY_KEY_ID=your_key
+      - RAZORPAY_KEY_SECRET=your_secret
+
+    command:
+      [
+        "--eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka",
+        "--spring.datasource.url=jdbc:postgresql://postgres:5432/sprintpayment?sslmode=disable",
+        "--spring.datasource.username=postgres",
+        "--spring.datasource.password=root"
+      ]
+
+    depends_on:
+      - postgres
+      - config
+      - eureka-service
+      - zipkin
+
     networks:
       - shopsphere-network
 

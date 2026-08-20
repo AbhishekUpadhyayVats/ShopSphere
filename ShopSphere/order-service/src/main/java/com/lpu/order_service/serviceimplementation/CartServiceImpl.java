@@ -75,7 +75,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findByUserId(userId).orElse(null);
 
         if (cart == null) {
-            return; // already gone — treat as success
+            return;
         }
 
         if (!cart.getUserId().equals(userId)) {

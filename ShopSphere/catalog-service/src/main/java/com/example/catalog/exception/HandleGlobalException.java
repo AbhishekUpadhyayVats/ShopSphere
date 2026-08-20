@@ -46,7 +46,7 @@ public class HandleGlobalException {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Map<String,String>> handleAllException(Exception ex){
 		Map<String,String> map = new HashMap<>();
-		map.put("Error:", ex.getMessage());
+		map.put("Error:", ex.getMessage() + " bnfvbbjfbjfbjfjhf");
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 	}

@@ -13,10 +13,9 @@ public class RabbitMQConfig {
     public static final String EXCHANGE = "email.exchange";
     public static final String ROUTING_KEY = "email.routingKey";
     
-    // ================= PAYMENT =================
-    public static final String PAYMENT_QUEUE = "order.payment.queue";
-    public static final String PAYMENT_EXCHANGE = "order.exchange";
-    public static final String PAYMENT_ROUTING_KEY = "order.routingkey";
+//    public static final String PAYMENT_QUEUE = "order.payment.queue";
+//    public static final String PAYMENT_EXCHANGE = "order.exchange";
+//    public static final String PAYMENT_ROUTING_KEY = "order.routingkey";
 
 
     @Bean
@@ -34,24 +33,23 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(queue()).to(exchange()).with(ROUTING_KEY);
     }
     
-    // ================= PAYMENT BEANS =================
-    @Bean
-    public Queue paymentQueue() {
-        return new Queue(PAYMENT_QUEUE);
-    }
-
-    @Bean
-    public TopicExchange paymentExchange() {
-        return new TopicExchange(PAYMENT_EXCHANGE);
-    }
-
-    @Bean
-    public Binding paymentBinding() {
-        return BindingBuilder
-                .bind(paymentQueue())
-                .to(paymentExchange())
-                .with(PAYMENT_ROUTING_KEY);
-    }
+//    @Bean
+//    public Queue paymentQueue() {
+//        return new Queue(PAYMENT_QUEUE);
+//    }
+//
+//    @Bean
+//    public TopicExchange paymentExchange() {
+//        return new TopicExchange(PAYMENT_EXCHANGE);
+//    }
+//
+//    @Bean
+//    public Binding paymentBinding() {
+//        return BindingBuilder
+//                .bind(paymentQueue())
+//                .to(paymentExchange())
+//                .with(PAYMENT_ROUTING_KEY);
+//    }
 
     @Bean
     public MessageConverter messageConverter() {

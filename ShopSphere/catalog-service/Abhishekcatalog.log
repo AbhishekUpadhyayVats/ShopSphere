@@ -111,3 +111,106 @@ This generated password is for development use only. Your security configuration
 2026-05-05 00:55:02 - Unregistering ...
 2026-05-05 00:55:02 - DiscoveryClient_CATALOG-SERVICE/Krishna.mshome.net:catalog-service:8083 - deregister  status: 200
 2026-05-05 00:55:02 - Completed shut down of DiscoveryClient
+2026-05-05 02:14:38 - Starting CatalogServiceApplication using Java 23.0.2 with PID 37896 (D:\Abhishek\Sprint_Evaluation\ShopSphere\catalog-service\target\classes started by upadh in D:\Abhishek\Sprint_Evaluation\ShopSphere\catalog-service)
+2026-05-05 02:14:38 - No active profile set, falling back to 1 default profile: "default"
+2026-05-05 02:14:38 - Fetching config from server at : http://localhost:8888/config
+2026-05-05 02:14:38 - Located environment: name=catalog-service, profiles=[default], label=null, version=b9f616c1c7bb09cb340cf8799be4614525e0e728, state=
+2026-05-05 02:14:38 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-05-05 02:14:38 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-05-05 02:14:41 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-05 02:14:41 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-05 02:14:41 - Finished Spring Data repository scanning in 377 ms. Found 2 JPA repository interfaces.
+2026-05-05 02:14:41 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-05 02:14:41 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-05 02:14:41 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.catalog.repository.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-05 02:14:41 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.catalog.repository.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-05 02:14:41 - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2026-05-05 02:14:42 - BeanFactory id=9472f672-2b14-3cfc-8480-1a6fb5d873ef
+2026-05-05 02:14:43 - Tomcat initialized with port 8083 (http)
+2026-05-05 02:14:43 - Starting service [Tomcat]
+2026-05-05 02:14:43 - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-05-05 02:14:44 - Root WebApplicationContext: initialization completed in 5492 ms
+2026-05-05 02:14:45 - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-05-05 02:14:45 - HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-05-05 02:14:46 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-05 02:14:46 - HikariPool-1 - Starting...
+2026-05-05 02:14:46 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@732e89f8
+2026-05-05 02:14:46 - HikariPool-1 - Start completed.
+2026-05-05 02:14:46 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-05 02:14:46 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/sprintcatalog]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: sprintcatalog/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-05 02:14:48 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-05 02:14:48 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-05 02:14:48 - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-05 02:14:49 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-05 02:14:49 - 
+
+Using generated security password: 34422893-7302-4b60-82b8-3fe05ea8be36
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-05-05 02:14:49 - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-05 02:14:51 - Eureka HTTP Client uses RestClient.
+2026-05-05 02:14:52 - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-05-05 02:14:52 - Exposing 17 endpoints beneath base path '/actuator'
+2026-05-05 02:14:52 - Setting initial instance status as: STARTING
+2026-05-05 02:14:52 - Initializing Eureka in region us-east-1
+2026-05-05 02:14:52 - Resolving eureka endpoints via configuration
+2026-05-05 02:14:52 - Disable delta property : false
+2026-05-05 02:14:52 - Single vip registry refresh property : null
+2026-05-05 02:14:52 - Force full registry fetch : false
+2026-05-05 02:14:52 - Application is null : false
+2026-05-05 02:14:52 - Registered Applications size is zero : true
+2026-05-05 02:14:52 - Application version is -1: true
+2026-05-05 02:14:52 - Getting all instance registry info from the eureka server
+2026-05-05 02:14:52 - The response status is 200
+2026-05-05 02:14:52 - Starting heartbeat executor: renew interval is: 30
+2026-05-05 02:14:52 - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-05-05 02:14:52 - Discovery Client initialized at timestamp 1777927492559 with initial instances count: 1
+2026-05-05 02:14:52 - Registering application CATALOG-SERVICE with eureka with status UP
+2026-05-05 02:14:52 - Saw local status change event StatusChangeEvent [timestamp=1777927492567, current=UP, previous=STARTING]
+2026-05-05 02:14:52 - DiscoveryClient_CATALOG-SERVICE/Krishna.mshome.net:catalog-service:8083: registering service...
+2026-05-05 02:14:52 - Tomcat started on port 8083 (http) with context path '/'
+2026-05-05 02:14:52 - Updating port to 8083
+2026-05-05 02:14:52 - Started CatalogServiceApplication in 17.866 seconds (process running for 20.257)
+2026-05-05 02:14:52 - DiscoveryClient_CATALOG-SERVICE/Krishna.mshome.net:catalog-service:8083 - registration status: 204
+2026-05-05 02:14:52 - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-05-05 02:14:52 - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-05-05 02:14:53 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-05 02:14:53 - Initializing Servlet 'dispatcherServlet'
+2026-05-05 02:14:53 - Completed initialization in 4 ms
+2026-05-05 02:15:21 - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-05-05 02:19:52 - Resolving eureka endpoints via configuration
+2026-05-05 02:24:52 - Resolving eureka endpoints via configuration
+2026-05-05 02:29:52 - Resolving eureka endpoints via configuration
+2026-05-05 02:34:52 - Resolving eureka endpoints via configuration
+2026-05-05 02:42:16 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m58s836ms204µs800ns).
+2026-05-05 02:43:28 - Resolving eureka endpoints via configuration
+2026-05-05 02:48:28 - Resolving eureka endpoints via configuration
+2026-05-05 02:50:43 - Application shutdown requested.
+2026-05-05 02:50:43 - Unregistering application CATALOG-SERVICE with eureka with status DOWN
+2026-05-05 02:50:43 - Saw local status change event StatusChangeEvent [timestamp=1777929643291, current=DOWN, previous=UP]
+2026-05-05 02:50:43 - DiscoveryClient_CATALOG-SERVICE/Krishna.mshome.net:catalog-service:8083: registering service...
+2026-05-05 02:50:43 - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-05 02:50:43 - Graceful shutdown complete
+2026-05-05 02:50:43 - DiscoveryClient_CATALOG-SERVICE/Krishna.mshome.net:catalog-service:8083 - registration status: 204
+2026-05-05 02:50:43 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-05 02:50:43 - HikariPool-1 - Shutdown initiated...
+2026-05-05 02:50:43 - HikariPool-1 - Shutdown completed.
+2026-05-05 02:50:43 - Shutting down DiscoveryClient ...
+2026-05-05 02:50:46 - Unregistering ...
+2026-05-05 02:50:46 - DiscoveryClient_CATALOG-SERVICE/Krishna.mshome.net:catalog-service:8083 - deregister  status: 200
+2026-05-05 02:50:46 - Completed shut down of DiscoveryClient

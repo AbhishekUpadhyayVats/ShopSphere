@@ -1,0 +1,387 @@
+2026-08-17 10:43:51 - Starting OrderServiceApplication using Java 23.0.2 with PID 17696 (D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service\target\classes started by upadh in D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service)
+2026-08-17 10:43:51 - No active profile set, falling back to 1 default profile: "default"
+2026-08-17 10:43:51 - Fetching config from server at : http://localhost:8888/config
+2026-08-17 10:43:51 - Located environment: name=order-service, profiles=[default], label=null, version=bfd2b0d8e05505f48b5dfb7abb38b92bbc02861b, state=
+2026-08-17 10:43:51 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-17 10:43:51 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-17 10:43:52 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:43:52 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-17 10:43:53 - Finished Spring Data repository scanning in 151 ms. Found 5 JPA repository interfaces.
+2026-08-17 10:43:53 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:43:53 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-08-17 10:43:53 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.AddressRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:43:53 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:43:53 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:43:53 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:43:53 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:43:53 - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-08-17 10:43:53 - BeanFactory id=cd59b1ba-9e18-3255-90e5-22598ce90e4d
+2026-08-17 10:43:54 - Tomcat initialized with port 8084 (http)
+2026-08-17 10:43:54 - Starting service [Tomcat]
+2026-08-17 10:43:54 - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-08-17 10:43:54 - Root WebApplicationContext: initialization completed in 3223 ms
+2026-08-17 10:43:55 - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-17 10:43:55 - HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-08-17 10:43:55 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-17 10:43:55 - HikariPool-1 - Starting...
+2026-08-17 10:43:56 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@642c6509
+2026-08-17 10:43:56 - HikariPool-1 - Start completed.
+2026-08-17 10:43:56 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-17 10:43:56 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/sprintorder]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: sprintorder/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-17 10:43:57 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-17 10:43:57 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 10:43:57 - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-17 10:43:58 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-17 10:43:59 - For 'CATALOG-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:43:59 - For 'PAYMENT-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:43:59 - 
+
+Using generated security password: 52d5be83-a0b3-45ac-908a-fd980357d945
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-17 10:43:59 - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-08-17 10:44:01 - Eureka HTTP Client uses RestClient.
+2026-08-17 10:44:01 - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-08-17 10:44:01 - Exposing 17 endpoints beneath base path '/actuator'
+2026-08-17 10:44:01 - Setting initial instance status as: STARTING
+2026-08-17 10:44:01 - Initializing Eureka in region us-east-1
+2026-08-17 10:44:01 - Resolving eureka endpoints via configuration
+2026-08-17 10:44:01 - Disable delta property : false
+2026-08-17 10:44:01 - Single vip registry refresh property : null
+2026-08-17 10:44:01 - Force full registry fetch : false
+2026-08-17 10:44:01 - Application is null : false
+2026-08-17 10:44:01 - Registered Applications size is zero : true
+2026-08-17 10:44:01 - Application version is -1: true
+2026-08-17 10:44:01 - Getting all instance registry info from the eureka server
+2026-08-17 10:44:01 - The response status is 200
+2026-08-17 10:44:01 - Starting heartbeat executor: renew interval is: 30
+2026-08-17 10:44:01 - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-08-17 10:44:01 - Discovery Client initialized at timestamp 1786943641914 with initial instances count: 3
+2026-08-17 10:44:01 - Registering application ORDER-SERVICE with eureka with status UP
+2026-08-17 10:44:01 - Saw local status change event StatusChangeEvent [timestamp=1786943641923, current=UP, previous=STARTING]
+2026-08-17 10:44:01 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084: registering service...
+2026-08-17 10:44:01 - Tomcat started on port 8084 (http) with context path '/'
+2026-08-17 10:44:01 - Updating port to 8084
+2026-08-17 10:44:01 - Started OrderServiceApplication in 13.36 seconds (process running for 14.708)
+2026-08-17 10:44:01 - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-08-17 10:44:01 - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-08-17 10:44:01 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084 - registration status: 204
+2026-08-17 10:44:02 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-17 10:44:02 - Initializing Servlet 'dispatcherServlet'
+2026-08-17 10:44:02 - Completed initialization in 3 ms
+2026-08-17 10:48:40 - Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
+2026-08-17 10:48:40 - Unregistering application ORDER-SERVICE with eureka with status DOWN
+2026-08-17 10:48:40 - Saw local status change event StatusChangeEvent [timestamp=1786943920911, current=DOWN, previous=UP]
+2026-08-17 10:48:40 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084: registering service...
+2026-08-17 10:48:40 - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-17 10:48:40 - Graceful shutdown complete
+2026-08-17 10:48:40 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084 - registration status: 204
+2026-08-17 10:48:40 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 10:48:40 - HikariPool-1 - Shutdown initiated...
+2026-08-17 10:48:40 - HikariPool-1 - Shutdown completed.
+2026-08-17 10:48:40 - Shutting down DiscoveryClient ...
+2026-08-17 10:48:43 - Unregistering ...
+2026-08-17 10:48:43 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084 - deregister  status: 200
+2026-08-17 10:48:43 - Completed shut down of DiscoveryClient
+2026-08-17 10:48:45 - Starting OrderServiceApplication using Java 23.0.2 with PID 17696 (D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service\target\classes started by upadh in D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service)
+2026-08-17 10:48:45 - No active profile set, falling back to 1 default profile: "default"
+2026-08-17 10:48:45 - Fetching config from server at : http://localhost:8888/config
+2026-08-17 10:48:45 - Located environment: name=order-service, profiles=[default], label=null, version=bfd2b0d8e05505f48b5dfb7abb38b92bbc02861b, state=
+2026-08-17 10:48:46 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:48:46 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-17 10:48:46 - Finished Spring Data repository scanning in 35 ms. Found 5 JPA repository interfaces.
+2026-08-17 10:48:46 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:48:46 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-08-17 10:48:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.AddressRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:48:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:48:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:48:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:48:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:48:46 - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-08-17 10:48:46 - BeanFactory id=cd59b1ba-9e18-3255-90e5-22598ce90e4d
+2026-08-17 10:48:46 - Tomcat initialized with port 8084 (http)
+2026-08-17 10:48:46 - Starting service [Tomcat]
+2026-08-17 10:48:46 - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-08-17 10:48:46 - Root WebApplicationContext: initialization completed in 1295 ms
+2026-08-17 10:48:46 - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-17 10:48:46 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-17 10:48:46 - HikariPool-2 - Starting...
+2026-08-17 10:48:47 - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@613dd7a9
+2026-08-17 10:48:47 - HikariPool-2 - Start completed.
+2026-08-17 10:48:47 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-17 10:48:47 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/sprintorder]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: sprintorder/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-17 10:48:47 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-17 10:48:47 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 10:48:47 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-17 10:48:47 - For 'CATALOG-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:48:47 - For 'PAYMENT-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:48:47 - 
+
+Using generated security password: 7ccfbba1-3353-4feb-826d-3428f2fdef13
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-17 10:48:47 - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-08-17 10:48:49 - Eureka HTTP Client uses RestClient.
+2026-08-17 10:48:49 - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-08-17 10:48:49 - Exposing 17 endpoints beneath base path '/actuator'
+2026-08-17 10:48:49 - Setting initial instance status as: STARTING
+2026-08-17 10:48:49 - Initializing Eureka in region us-east-1
+2026-08-17 10:48:49 - Resolving eureka endpoints via configuration
+2026-08-17 10:48:49 - Disable delta property : false
+2026-08-17 10:48:49 - Single vip registry refresh property : null
+2026-08-17 10:48:49 - Force full registry fetch : false
+2026-08-17 10:48:49 - Application is null : false
+2026-08-17 10:48:49 - Registered Applications size is zero : true
+2026-08-17 10:48:49 - Application version is -1: true
+2026-08-17 10:48:49 - Getting all instance registry info from the eureka server
+2026-08-17 10:48:49 - The response status is 200
+2026-08-17 10:48:49 - Starting heartbeat executor: renew interval is: 30
+2026-08-17 10:48:49 - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-08-17 10:48:49 - Discovery Client initialized at timestamp 1786943929171 with initial instances count: 7
+2026-08-17 10:48:49 - Registering application ORDER-SERVICE with eureka with status UP
+2026-08-17 10:48:49 - Saw local status change event StatusChangeEvent [timestamp=1786943929178, current=UP, previous=STARTING]
+2026-08-17 10:48:49 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084: registering service...
+2026-08-17 10:48:49 - Tomcat started on port 8084 (http) with context path '/'
+2026-08-17 10:48:49 - Updating port to 8084
+2026-08-17 10:48:49 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084 - registration status: 204
+2026-08-17 10:48:49 - Started OrderServiceApplication in 5.112 seconds (process running for 301.926)
+2026-08-17 10:48:49 - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-08-17 10:48:49 - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-08-17 10:48:49 - Condition evaluation unchanged
+2026-08-17 10:49:46 - Starting OrderServiceApplication using Java 23.0.2 with PID 22284 (D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service\target\classes started by upadh in D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service)
+2026-08-17 10:49:46 - No active profile set, falling back to 1 default profile: "default"
+2026-08-17 10:49:46 - Fetching config from server at : http://localhost:8888/config
+2026-08-17 10:49:46 - Located environment: name=order-service, profiles=[default], label=null, version=bfd2b0d8e05505f48b5dfb7abb38b92bbc02861b, state=
+2026-08-17 10:49:46 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-17 10:49:46 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-17 10:49:48 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:49:48 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-17 10:49:48 - Finished Spring Data repository scanning in 173 ms. Found 5 JPA repository interfaces.
+2026-08-17 10:49:48 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:49:48 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-08-17 10:49:48 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.AddressRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:49:48 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:49:48 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:49:48 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:49:48 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:49:48 - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2026-08-17 10:49:48 - BeanFactory id=cd59b1ba-9e18-3255-90e5-22598ce90e4d
+2026-08-17 10:49:49 - Tomcat initialized with port 9991 (http)
+2026-08-17 10:49:49 - Starting service [Tomcat]
+2026-08-17 10:49:49 - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-08-17 10:49:49 - Root WebApplicationContext: initialization completed in 3452 ms
+2026-08-17 10:49:50 - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-17 10:49:50 - HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-08-17 10:49:51 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-17 10:49:51 - HikariPool-1 - Starting...
+2026-08-17 10:49:51 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@28eeefab
+2026-08-17 10:49:51 - HikariPool-1 - Start completed.
+2026-08-17 10:49:51 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-17 10:49:51 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/sprintorder]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: sprintorder/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-17 10:49:52 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-17 10:49:53 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 10:49:53 - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-17 10:49:54 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-17 10:49:54 - For 'CATALOG-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:49:54 - For 'PAYMENT-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:49:55 - 
+
+Using generated security password: c430b534-9c55-499d-9c8b-9523ed1e970c
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-17 10:49:55 - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-08-17 10:49:57 - Eureka HTTP Client uses RestClient.
+2026-08-17 10:49:57 - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-08-17 10:49:57 - Exposing 17 endpoints beneath base path '/actuator'
+2026-08-17 10:49:57 - Setting initial instance status as: STARTING
+2026-08-17 10:49:57 - Initializing Eureka in region us-east-1
+2026-08-17 10:49:57 - Resolving eureka endpoints via configuration
+2026-08-17 10:49:57 - Disable delta property : false
+2026-08-17 10:49:57 - Single vip registry refresh property : null
+2026-08-17 10:49:57 - Force full registry fetch : false
+2026-08-17 10:49:57 - Application is null : false
+2026-08-17 10:49:57 - Registered Applications size is zero : true
+2026-08-17 10:49:57 - Application version is -1: true
+2026-08-17 10:49:57 - Getting all instance registry info from the eureka server
+2026-08-17 10:49:57 - The response status is 200
+2026-08-17 10:49:57 - Starting heartbeat executor: renew interval is: 30
+2026-08-17 10:49:57 - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-08-17 10:49:57 - Discovery Client initialized at timestamp 1786943997637 with initial instances count: 7
+2026-08-17 10:49:57 - Registering application ORDER-SERVICE with eureka with status UP
+2026-08-17 10:49:57 - Saw local status change event StatusChangeEvent [timestamp=1786943997647, current=UP, previous=STARTING]
+2026-08-17 10:49:57 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991: registering service...
+2026-08-17 10:49:57 - Tomcat started on port 9991 (http) with context path '/'
+2026-08-17 10:49:57 - Updating port to 9991
+2026-08-17 10:49:57 - Started OrderServiceApplication in 14.068 seconds (process running for 15.712)
+2026-08-17 10:49:57 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991 - registration status: 204
+2026-08-17 10:49:57 - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-08-17 10:49:57 - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-08-17 10:49:58 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-17 10:49:58 - Initializing Servlet 'dispatcherServlet'
+2026-08-17 10:49:58 - Completed initialization in 3 ms
+2026-08-17 10:50:05 - Application shutdown requested.
+2026-08-17 10:50:05 - Unregistering application ORDER-SERVICE with eureka with status DOWN
+2026-08-17 10:50:05 - Saw local status change event StatusChangeEvent [timestamp=1786944005146, current=DOWN, previous=UP]
+2026-08-17 10:50:05 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991: registering service...
+2026-08-17 10:50:05 - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-17 10:50:05 - Graceful shutdown complete
+2026-08-17 10:50:05 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991 - registration status: 204
+2026-08-17 10:50:05 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 10:50:05 - HikariPool-1 - Shutdown initiated...
+2026-08-17 10:50:05 - HikariPool-1 - Shutdown completed.
+2026-08-17 10:50:05 - Shutting down DiscoveryClient ...
+2026-08-17 10:50:08 - Unregistering ...
+2026-08-17 10:50:08 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991 - deregister  status: 200
+2026-08-17 10:50:08 - Completed shut down of DiscoveryClient
+2026-08-17 10:50:16 - Starting OrderServiceApplication using Java 23.0.2 with PID 35492 (D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service\target\classes started by upadh in D:\Abhishek\Sprint_Evaluation\ShopSphere\order-service)
+2026-08-17 10:50:16 - No active profile set, falling back to 1 default profile: "default"
+2026-08-17 10:50:16 - Fetching config from server at : http://localhost:8888/config
+2026-08-17 10:50:16 - Located environment: name=order-service, profiles=[default], label=null, version=bfd2b0d8e05505f48b5dfb7abb38b92bbc02861b, state=
+2026-08-17 10:50:16 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-17 10:50:16 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-17 10:50:17 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:50:17 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-17 10:50:18 - Finished Spring Data repository scanning in 146 ms. Found 5 JPA repository interfaces.
+2026-08-17 10:50:18 - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-17 10:50:18 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-08-17 10:50:18 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.AddressRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:50:18 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:50:18 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:50:18 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:50:18 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.lpu.order_service.repository.OrderRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-08-17 10:50:18 - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-08-17 10:50:18 - BeanFactory id=cd59b1ba-9e18-3255-90e5-22598ce90e4d
+2026-08-17 10:50:19 - Tomcat initialized with port 9991 (http)
+2026-08-17 10:50:19 - Starting service [Tomcat]
+2026-08-17 10:50:19 - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-08-17 10:50:19 - Root WebApplicationContext: initialization completed in 2935 ms
+2026-08-17 10:50:20 - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-17 10:50:20 - HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-08-17 10:50:20 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-17 10:50:20 - HikariPool-1 - Starting...
+2026-08-17 10:50:20 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@38624991
+2026-08-17 10:50:20 - HikariPool-1 - Start completed.
+2026-08-17 10:50:20 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-17 10:50:20 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/sprintorder]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: sprintorder/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-17 10:50:22 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-17 10:50:22 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 10:50:22 - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-17 10:50:23 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-17 10:50:23 - For 'CATALOG-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:50:23 - For 'PAYMENT-SERVICE' URL not provided. Will try picking an instance via load-balancing.
+2026-08-17 10:50:23 - 
+
+Using generated security password: 1fe19ead-e25d-4909-94d8-ef1c9bfeaef7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-17 10:50:23 - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-08-17 10:50:25 - Eureka HTTP Client uses RestClient.
+2026-08-17 10:50:25 - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-08-17 10:50:25 - Exposing 17 endpoints beneath base path '/actuator'
+2026-08-17 10:50:25 - Setting initial instance status as: STARTING
+2026-08-17 10:50:25 - Initializing Eureka in region us-east-1
+2026-08-17 10:50:25 - Resolving eureka endpoints via configuration
+2026-08-17 10:50:25 - Disable delta property : false
+2026-08-17 10:50:25 - Single vip registry refresh property : null
+2026-08-17 10:50:25 - Force full registry fetch : false
+2026-08-17 10:50:25 - Application is null : false
+2026-08-17 10:50:25 - Registered Applications size is zero : true
+2026-08-17 10:50:25 - Application version is -1: true
+2026-08-17 10:50:25 - Getting all instance registry info from the eureka server
+2026-08-17 10:50:26 - The response status is 200
+2026-08-17 10:50:26 - Starting heartbeat executor: renew interval is: 30
+2026-08-17 10:50:26 - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-08-17 10:50:26 - Discovery Client initialized at timestamp 1786944026059 with initial instances count: 8
+2026-08-17 10:50:26 - Registering application ORDER-SERVICE with eureka with status UP
+2026-08-17 10:50:26 - Saw local status change event StatusChangeEvent [timestamp=1786944026070, current=UP, previous=STARTING]
+2026-08-17 10:50:26 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991: registering service...
+2026-08-17 10:50:26 - Tomcat started on port 9991 (http) with context path '/'
+2026-08-17 10:50:26 - Updating port to 9991
+2026-08-17 10:50:26 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991 - registration status: 204
+2026-08-17 10:50:26 - Started OrderServiceApplication in 12.152 seconds (process running for 13.361)
+2026-08-17 10:50:26 - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-08-17 10:50:26 - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-08-17 10:50:26 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-17 10:50:26 - Initializing Servlet 'dispatcherServlet'
+2026-08-17 10:50:26 - Completed initialization in 3 ms
+2026-08-17 10:53:49 - Resolving eureka endpoints via configuration
+2026-08-17 10:55:25 - Resolving eureka endpoints via configuration
+2026-08-17 10:58:49 - Resolving eureka endpoints via configuration
+2026-08-17 11:00:25 - Resolving eureka endpoints via configuration
+2026-08-17 11:03:49 - Resolving eureka endpoints via configuration
+2026-08-17 11:03:59 - Application shutdown requested.
+2026-08-17 11:03:59 - Unregistering application ORDER-SERVICE with eureka with status DOWN
+2026-08-17 11:03:59 - Saw local status change event StatusChangeEvent [timestamp=1786944839834, current=DOWN, previous=UP]
+2026-08-17 11:03:59 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084: registering service...
+2026-08-17 11:03:59 - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-17 11:03:59 - Graceful shutdown complete
+2026-08-17 11:03:59 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 11:03:59 - HikariPool-2 - Shutdown initiated...
+2026-08-17 11:03:59 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084 - registration status: 204
+2026-08-17 11:03:59 - HikariPool-2 - Shutdown completed.
+2026-08-17 11:03:59 - Shutting down DiscoveryClient ...
+2026-08-17 11:04:02 - Unregistering ...
+2026-08-17 11:04:02 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:8084 - deregister  status: 200
+2026-08-17 11:04:02 - Completed shut down of DiscoveryClient
+2026-08-17 11:04:03 - Application shutdown requested.
+2026-08-17 11:04:03 - Unregistering application ORDER-SERVICE with eureka with status DOWN
+2026-08-17 11:04:03 - Saw local status change event StatusChangeEvent [timestamp=1786944843476, current=DOWN, previous=UP]
+2026-08-17 11:04:03 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991: registering service...
+2026-08-17 11:04:03 - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-17 11:04:03 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991 - registration status: 204
+2026-08-17 11:04:03 - Graceful shutdown complete
+2026-08-17 11:04:03 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-17 11:04:03 - HikariPool-1 - Shutdown initiated...
+2026-08-17 11:04:03 - HikariPool-1 - Shutdown completed.
+2026-08-17 11:04:03 - Shutting down DiscoveryClient ...
+2026-08-17 11:04:06 - Unregistering ...
+2026-08-17 11:04:06 - DiscoveryClient_ORDER-SERVICE/Krishna:order-service:9991 - deregister  status: 200
+2026-08-17 11:04:06 - Completed shut down of DiscoveryClient
